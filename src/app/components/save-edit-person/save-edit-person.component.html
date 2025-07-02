@@ -1,0 +1,149 @@
+<div class="container mt-4">
+  <div class="card shadow-sm">
+    <div class="card-header bg-secondary text-white">
+      <h2>{{ isEditing ? "Editar" : "Crear" }} usuario</h2>
+    </div>
+
+    <div class="card-body">
+      <form
+        class="row needs-validation"
+        [formGroup]="personForm"
+        novalidate
+      >
+        <div class="form-floating mb-3 col-md-6">
+          <input
+            type="text"
+            formControlName="name"
+            name="nameInput"
+            id="nameInput"
+            class="form-control"
+            placeholder="Nombre/s"
+            [class.is-invalid]="
+              personForm.controls['name'].invalid &&
+              (personForm.controls['name'].touched || personForm.controls['name'].dirty)
+            "
+            [class.is-valid]="
+              personForm.controls['name'].valid &&
+              (personForm.controls['name'].touched || personForm.controls['name'].dirty)
+            "
+          >
+          <label for="nameInput">Nombre/s</label>
+        </div>
+
+        <div class="form-floating mb-3 col-md-6">
+          <input
+            type="text"
+            formControlName="lastname"
+            name="lastnameInput"
+            id="lastnameInput"
+            class="form-control"
+            placeholder="Apellido/s"
+            [class.is-invalid]="
+              personForm.controls['lastname'].invalid &&
+              (personForm.controls['lastname'].touched || personForm.controls['lastname'].dirty)
+            "
+            [class.is-valid]="
+              personForm.controls['lastname'].valid &&
+              (personForm.controls['lastname'].touched || personForm.controls['lastname'].dirty)
+            "
+          >
+          <label for="lastnameInput">Apellido/s</label>
+        </div>
+
+        <div class="form-floating mb-3 col-md-6">
+          <input
+            type="number"
+            formControlName="age"
+            name="ageInput"
+            id="ageInput"
+            class="form-control"
+            placeholder="Edad"
+            [class.is-invalid]="
+              personForm.controls['age'].invalid &&
+              (personForm.controls['age'].touched || personForm.controls['age'].dirty)
+            "
+            [class.is-valid]="
+              personForm.controls['age'].valid &&
+              (personForm.controls['age'].touched || personForm.controls['age'].dirty)
+            "
+          >
+          <label for="ageInput">Edad</label>
+        </div>
+
+        <div class="form-floating mb-3 col-md-6">
+          <select
+            name="countryInput"
+            formControlName="country"
+            id="countryInput"
+            class="form-control"
+            [compareWith]="compareOptionsById"
+            [class.is-invalid]="
+              personForm.controls['country'].invalid &&
+              (personForm.controls['country'].touched || personForm.controls['country'].dirty)
+            "
+            [class.is-valid]="
+              personForm.controls['country'].valid &&
+              (personForm.controls['country'].touched || personForm.controls['country'].dirty)
+            "
+          >
+            <option value="" selected disabled>-- Seleccina una opción --</option>
+            <option [ngValue]="country" *ngFor="let country of countries$ | async">
+              {{ country.name }}
+            </option>
+          </select>
+          <label for="countryInput">País de nacimiento</label>
+        </div>
+
+        <div class="form-floating mb-3 col-md-6">
+          <select
+            name="stateInput"
+            formControlName="state"
+            id="stateInput"
+            class="form-control"
+            [compareWith]="compareOptionsById"
+            [class.is-invalid]="
+              personForm.controls['state'].invalid &&
+              (personForm.controls['state'].touched || personForm.controls['state'].dirty)
+            "
+            [class.is-valid]="
+              personForm.controls['state'].valid &&
+              (personForm.controls['state'].touched || personForm.controls['state'].dirty)
+            "
+          >
+            <option value="" selected disabled>-- Seleccina una opción --</option>
+            <option [ngValue]="state" *ngFor="let state of states">
+              {{ state.name }}
+            </option>
+          </select>
+          <label for="stateInput">Ciudad de residencia</label>
+        </div>
+      </form>
+    </div>
+
+    <div class="card-footer text-end">
+      <button class="btn btn-primary mx-3" (click)="saveData()">
+        {{ isEditing ? "Editar" : "Crear" }}
+      </button>
+      <button class="btn btn-danger" (click)="goBack()">Cancelar</button>
+    </div>
+  </div>
+
+  <!-- Sección de errores -->
+  <div
+    class="alert alert-warning my-5"
+    *ngIf="(countries$ | async)?.length === 0 && !errorMessage"
+  >
+    No se encontraron paises.
+  </div>
+
+  <div class="alert alert-danger my-5" *ngIf="errorMessage">
+    {{ errorMessage }}
+  </div>
+  <!-- End Sección de errores -->
+
+  <!-- Sección de mensajes de exito -->
+  <div class="alert alert-success my-5" *ngIf="successMessage">
+    {{ successMessage }}
+  </div>
+  <!-- End Sección de mensajes de exito -->
+</div>

@@ -1,0 +1,13 @@
+.card {
+  max-width: 850px;
+  margin: 0 auto;
+}
+
+.card-title {
+  color: #0056b3;
+}
+
+.card-text strong {
+  min-width: 80px;
+  display: inline-block;
+}
