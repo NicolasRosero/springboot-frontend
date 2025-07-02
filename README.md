@@ -2,7 +2,7 @@
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.0.3.
 
-This is a FrontEnd project for learning and practicing Angular an RxJS.
+This is a FrontEnd project for learning and practicing Angular and RxJS.
 
 ## Development server
 
